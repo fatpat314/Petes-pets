@@ -18,11 +18,11 @@ chai.use(chaiHttp);
 
 describe('Pets', ()  => {
 
-  after(() => { 
+  after(() => {
     Pet.deleteMany({$or: [{name: 'Norman'}, {name: 'Spider'}] }).exec((err, pets) => {
       console.log(pets)
       pets.remove();
-    }) 
+    })
   });
 
   // TEST INDEX
@@ -46,8 +46,8 @@ describe('Pets', ()  => {
           done();
         });
   });
-  
-  // TEST CREATE 
+
+  // TEST CREATE
   it('should create a SINGLE pet on /pets POST', (done) => {
     chai.request(server)
         .post('/pets')
@@ -73,6 +73,17 @@ describe('Pets', ()  => {
      });
 
   });
+
+  // SEARCH
+  it('should search ALL pets by nae on /search GET', (done) => {
+      chai.request(server)
+        .get('/search?term=norman')
+        .get((err, res) => {
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+        })
+  })
 
   // TEST EDIT
   it('should edit a SINGLE pet on /pets/<id>/edit GET', (done) => {
