@@ -16,6 +16,25 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/petes-pets');
 
+const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
+
+const auth = {
+    auth: {
+        api_key: process.env.MAILGUN_API_KEY,
+        domain: process.env.EMAIL_DOMAIN
+    }
+}
+
+const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+
+const user = {
+    email: 'w.patrick.kelly@gmail.com',
+    name: 'Patrick',
+    age: '27'
+};
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
