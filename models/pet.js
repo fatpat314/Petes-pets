@@ -9,19 +9,23 @@ mongoosePaginate.paginate.options = {
   limit: 3 // how many records on each page
 };
 
+
+
 const PetSchema = new Schema({
     name            : { type: String, required: true }
   , species         : { type: String }
   , birthday        : { type: Date }
   , picUrl          : { type: String }
   , picUrlSq        : { type: String }
+  , avatarUrl: { type: String, required: true }
   , favoriteFood    : { type: String }
   , description     : { type: String }
+  , price           : {type: Number, required: true }
 },
 {
   timestamps: true
 });
 
-
 PetSchema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model('Pet', PetSchema);
