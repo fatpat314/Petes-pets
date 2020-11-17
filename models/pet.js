@@ -11,6 +11,8 @@ mongoosePaginate.paginate.options = {
 
 
 
+
+
 const PetSchema = new Schema({
     name            : { type: String, required: true }
   , species         : { type: String }
@@ -27,5 +29,7 @@ const PetSchema = new Schema({
 });
 
 PetSchema.plugin(mongoosePaginate);
+
+PetSchema.index({ name: 'text', species: 'text', favoriteFood: 'text', description: 'text' });
 
 module.exports = mongoose.model('Pet', PetSchema);
